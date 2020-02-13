@@ -3,12 +3,12 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: p
 function preload() {
 
     game.load.image('bullet', 'assets/laserBlue.png');
-    game.load.image('enemyBullet', 'assets/laserRed.png');
-    game.load.spritesheet('invader', 'assets/enemyBlack.png', 32, 32);
-    game.load.image('ship', 'assets/playerShip.png');
-    game.load.spritesheet('kaboom', 'assets/ship-damage.png', 128, 128);
+    game.load.image('enemyBullet', 'assets/games/invaders/enemy-bullet.png');
+    game.load.spritesheet('invader', 'assets/games/invaders/invader32x32x4.png', 32, 32);
+    game.load.image('ship', 'assets/games/invaders/player.png');
+    game.load.spritesheet('kaboom', 'assets/games/invaders/explode.png', 128, 128);
     game.load.image('starfield', 'assets/background.png');
-    //game.load.image('background', 'assets/darkPurple.png');
+    game.load.image('background', 'assets/games/starstruck/background2.png');
 
 }
 
@@ -40,7 +40,7 @@ function create() {
     bullets = game.add.group();
     bullets.enableBody = true;
     bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    bullets.createMultiple(10, 'bullet');
+    bullets.createMultiple(30, 'bullet');
     bullets.setAll('anchor.x', 0.5);
     bullets.setAll('anchor.y', 1);
     bullets.setAll('outOfBoundsKill', true);
