@@ -162,6 +162,14 @@ function update() {
         {
             player.body.velocity.x = 200;
         }
+        else if (cursors.up.isDown)
+        {
+            player.body.velocity.y = 200;
+        }
+        else if (cursors.down.isDown)
+        {
+            player.body.velocity.x = -200;
+        }
 
         //  Firing?
         if (fireButton.isDown)
