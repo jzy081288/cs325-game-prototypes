@@ -9,7 +9,7 @@ function preload() {
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
     game.load.image('starfield', 'assets/background.png');
     //game.load.image('background', 'assets/games/starstruck/background2.png');
-    game.load.audio('bgm', 'assets/audio/bgm.ogg');
+    game.load.audio('bgm', ['assets/audio/bgm.mp3', 'assets/audio/bgm.ogg']);
 
 }
 
