@@ -31,6 +31,7 @@ var firingTimer = 0;
 var stateText;
 var livingEnemies = [];
 var music;
+var pause_label;
 
 function create() {
 
