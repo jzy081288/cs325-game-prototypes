@@ -8,7 +8,7 @@ function preload() {
     game.load.image('ship', 'assets/playerShip.png');
     game.load.spritesheet('kaboom', 'assets/ship-damage.png', 128, 128);
     game.load.image('starfield', 'assets/background.png');
-    game.load.image('background', 'assets/darkPurple.png');
+    //game.load.image('background', 'assets/darkPurple.png');
 
 }
 
