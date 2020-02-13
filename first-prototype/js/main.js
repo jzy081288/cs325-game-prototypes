@@ -89,7 +89,7 @@ function create() {
 
     for (var i = 0; i < 3; i++) 
     {
-        var hp = lives.create(game.world.width - 100 + (30 * i), 60, 'hp');
+        var ship = lives.create(game.world.width - 100 + (30 * i), 60, 'ship');
         ship.anchor.setTo(0.5, 0.5);
         ship.angle = 90;
         ship.alpha = 0.4;
