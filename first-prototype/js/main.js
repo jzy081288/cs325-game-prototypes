@@ -5,7 +5,7 @@ function preload() {
     game.load.image('bullet', 'first-prototype/assets/laserBlue.png');
     game.load.image('enemyBullet', 'assets/games/invaders/enemy-bullet.png');
     game.load.spritesheet('invader', 'assets/games/invaders/invader32x32x4.png', 32, 32);
-    game.load.image('ship', 'assets/games/invaders/player.png');
+    game.load.image('ship', 'first-prototype/assets/playerShip.png');
     game.load.spritesheet('kaboom', 'assets/games/invaders/explode.png', 128, 128);
     game.load.image('starfield', 'assets/background.png');
     game.load.image('background', 'first-prototype/assets/games/starstruck/background2.png');
