@@ -106,7 +106,7 @@ function create() {
     fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     //pause game button
-    pause_label = game.add.text(game.world.hight - 10, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
+    pause_label = game.add.text(game.world.hight - 100, 20, 'Pause', { font: '34px Arial', fill: '#fff' });
     pause_label.inputEnabled = true;
     pause_label.events.onInputUp.add(function () {
         // When the paus button is pressed, we pause the game
