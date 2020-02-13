@@ -2,13 +2,13 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: p
 
 function preload() {
 
-    game.load.image('bullet', 'first-prototype/assets/laserBlue.png');
-    game.load.image('enemyBullet', 'assets/games/invaders/enemy-bullet.png');
-    game.load.spritesheet('invader', 'assets/games/invaders/invader32x32x4.png', 32, 32);
+    game.load.image('bullet', 'assets/laserBlue.png');
+    game.load.image('enemyBullet', 'assets/laserRed.png');
+    game.load.spritesheet('invader', 'assets/enemyBlack.png', 32, 32);
     game.load.image('ship', 'assets/playerShip.png');
-    game.load.spritesheet('kaboom', 'assets/games/invaders/explode.png', 128, 128);
+    game.load.spritesheet('kaboom', 'assets/ship-damage.png', 128, 128);
     game.load.image('starfield', 'assets/background.png');
-    game.load.image('background', 'first-prototype/assets/games/starstruck/background2.png');
+    game.load.image('background', 'assets/darkPurple.png');
 
 }
 
