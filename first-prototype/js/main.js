@@ -9,6 +9,7 @@ function preload() {
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
     game.load.image('starfield', 'assets/background.png');
     //game.load.image('background', 'assets/games/starstruck/background2.png');
+    game.load.audio('bgm', 'assets/audio/bgm.ogg');
 
 }
 
@@ -28,6 +29,7 @@ var enemyBullet;
 var firingTimer = 0;
 var stateText;
 var livingEnemies = [];
+var music;
 
 function create() {
 
@@ -35,6 +37,9 @@ function create() {
 
     //  The scrolling starfield background
     starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
+
+    music = game.add.audio('bgm');
+    music.play();
 
     //  Our bullet group
     bullets = game.add.group();
