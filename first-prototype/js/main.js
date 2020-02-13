@@ -8,6 +8,7 @@ function preload() {
     game.load.image('ship', 'assets/playerShip.png');
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
     game.load.image('starfield', 'assets/background.png');
+    game.load.image('hp', 'assets/hp.png');
     //game.load.image('background', 'assets/games/starstruck/background2.png');
     game.load.audio('bgm', ['assets/audio/bgm.mp3', 'assets/audio/bgm.ogg']);
 
@@ -88,7 +89,7 @@ function create() {
 
     for (var i = 0; i < 3; i++) 
     {
-        var ship = lives.create(game.world.width - 100 + (30 * i), 60, 'ship');
+        var hp = lives.create(game.world.width - 100 + (30 * i), 60, 'hp');
         ship.anchor.setTo(0.5, 0.5);
         ship.angle = 90;
         ship.alpha = 0.4;
