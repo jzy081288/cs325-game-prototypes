@@ -1,49 +1,70 @@
-"use strict";
+var GameState = function(game) {
+};
 
-window.onload = function() {
-    // You can copy-and-paste the code from any of the examples at http://examples.phaser.io here.
-    // You will need to change the fourth parameter to "new Phaser.Game()" from
-    // 'phaser-example' to 'game', which is the id of the HTML element where we
-    // want the game to go.
-    // The assets (and code) can be found at: https://github.com/photonstorm/phaser/tree/master/examples/assets
-    // You will need to change the paths you pass to "game.load.image()" or any other
-    // loading functions to reflect where you are putting the assets.
-    // All loading functions will typically all be found inside "preload()".
-    
-    var game = new Phaser.Game( 800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
-    
-    function preload() {
-        // Load an image and call it 'logo'.
-        game.load.image( 'logo', 'assets/phaser.png' );
-    }
-    
-    var bouncy;
-    
-    function create() {
-        // Create a sprite at the center of the screen using the 'logo' image.
-        bouncy = game.add.sprite( game.world.centerX, game.world.centerY, 'logo' );
-        // Anchor the sprite at its center, as opposed to its top-left corner.
-        // so it will be truly centered.
-        bouncy.anchor.setTo( 0.5, 0.5 );
-        
-        // Turn on the arcade physics engine for this sprite.
-        game.physics.enable( bouncy, Phaser.Physics.ARCADE );
-        // Make it bounce off of the world bounds.
-        bouncy.body.collideWorldBounds = true;
-        
-        // Add some text using a CSS style.
-        // Center it in X, and position its top 15 pixels from the top of the world.
-        var style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
-        var text = game.add.text( game.world.centerX, 15, "Build something amazing.", style );
-        text.anchor.setTo( 0.5, 0.0 );
-    }
-    
-    function update() {
-        // Accelerate the 'logo' sprite towards the cursor,
-        // accelerating at 500 pixels/second and moving no faster than 500 pixels/second
-        // in X or Y.
-        // This function returns the rotation angle that makes it visually match its
-        // new trajectory.
-        bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
+// Load images and sounds
+GameState.prototype.preload = function() {
+    this.game.load.image('player', '/assets/phaser.png');
+};
+
+// Setup the example
+GameState.prototype.create = function() {
+    // Set stage background color
+    this.game.stage.backgroundColor = 0x4488cc;
+
+    // Create a follower
+    this.game.add.existing(
+        new Follower(this.game, this.game.width/2, this.game.height/2, this.game.input)
+    );
+
+    // Simulate a pointer click/tap input at the center of the stage
+    // when the example begins running.
+    this.game.input.x = this.game.width/2;
+    this.game.input.y = this.game.height/2;
+};
+
+// The update() method is called every frame
+GameState.prototype.update = function() {
+};
+
+// Follower constructor
+var Follower = function(game, x, y, target) {
+    Phaser.Sprite.call(this, game, x, y, 'player');
+
+    // Save the target that this Follower will follow
+    // The target is any object with x and y properties
+    this.target = target;
+
+    // Set the pivot point for this sprite to the center
+    this.anchor.setTo(0.5, 0.5);
+
+    // Enable physics on this object
+    this.game.physics.enable(this, Phaser.Physics.ARCADE);
+
+    // Define constants that affect motion
+    this.MAX_SPEED = 250; // pixels/second
+    this.MIN_DISTANCE = 32; // pixels
+};
+
+// Followers are a type of Phaser.Sprite
+Follower.prototype = Object.create(Phaser.Sprite.prototype);
+Follower.prototype.constructor = Follower;
+
+Follower.prototype.update = function() {
+    // Calculate distance to target
+    var distance = this.game.math.distance(this.x, this.y, this.target.x, this.target.y);
+
+    // If the distance > MIN_DISTANCE then move
+    if (distance > this.MIN_DISTANCE) {
+        // Calculate the angle to the target
+        var rotation = this.game.math.angleBetween(this.x, this.y, this.target.x, this.target.y);
+
+        // Calculate velocity vector based on rotation and this.MAX_SPEED
+        this.body.velocity.x = Math.cos(rotation) * this.MAX_SPEED;
+        this.body.velocity.y = Math.sin(rotation) * this.MAX_SPEED;
+    } else {
+        this.body.velocity.setTo(0, 0);
     }
 };
+
+var game = new Phaser.Game(848, 450, Phaser.AUTO, 'game');
+game.state.add('game', GameState, true);
