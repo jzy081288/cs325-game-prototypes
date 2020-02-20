@@ -3,7 +3,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: p
 
 function preload() {
 
-    game.load.spritesheet('player', 'assets/guy.png'); //https://opengameart.org/content/animated-character
+    game.load.spritesheet('player', 'assets/guy.png', 32, 32); //https://opengameart.org/content/animated-character
     game.load.spritesheet('ghost', 'assets/ghost.png'); //https://opengameart.org/content/upwards-floating-soul
 
 }
