@@ -18,7 +18,7 @@ function create() {
 
     this.add.image(400, 300, 'sky');
 
-    var platforms = this.physics.add.staticGroup();
+    //var platforms = this.physics.add.staticGroup();
 
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
@@ -81,7 +81,7 @@ function update () {
     var cursors = this.cursors;
     var player = this.player;
 
-    if (cursors.left.isDown)
+    if (cursors.Left.isDown)
     {
         player.setVelocityX(-160);
 
