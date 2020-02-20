@@ -69,7 +69,7 @@ var GameScene = new Phaser.Class({
         var stars = this.physics.add.group({
             key: 'star',
             repeat: 8,
-            setXY: { x: 12, y: 0, stepX: 70 }
+            setXY: { x: 12, y: 0, stepX: 100 }
         });
 
         stars.children.iterate(function (child) {
@@ -81,7 +81,7 @@ var GameScene = new Phaser.Class({
         var ghost = this.physics.add.group({
             key: 'ghosts',
             repeat: 4,
-            setXY: {x: 24, y: 0, stepX: 70 }
+            setXY: {x: 24, y: 0, stepX: 130 }
         });
 
         ghost.children.iterate(function (child) {
@@ -103,7 +103,7 @@ var GameScene = new Phaser.Class({
         this.livesText = this.add.text(600, 16, 'Lives: 3', { fontSize: '32px', fill: '#000' });
 
         this.stateText = this.add.text(400, 300,' ', { font: '84px Arial', fill: '#000' });
-        this.stateText.anchor.setTo(0.5, 0.5);
+        //this.stateText.anchor.setTo(0.5, 0.5);
         this.stateText.visible = false;
     },
 
