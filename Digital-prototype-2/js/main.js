@@ -100,7 +100,7 @@ var GameScene = new Phaser.Class({
 
         this.player = player;
 
-        this.livesText = this.add.text(700, 16, 'Lives: 3', { fontSize: '32px', fill: '#000' });
+        this.livesText = this.add.text(650, 16, 'Lives: 3', { fontSize: '32px', fill: '#000' });
 
         this.stateText = this.add.text(this.world.centerX,this.world.centerY,' ', { font: '84px Arial', fill: '#000' });
         this.stateText.anchor.setTo(0.5, 0.5);
@@ -109,16 +109,16 @@ var GameScene = new Phaser.Class({
 
     update: function ()
     {
-        var cursors = this.cursors;
+        var cursor = this.cursors;
         var player = this.player;
 
-        if (cursors.left.isDown)
+        if (cursor.left.isDown)
         {
             player.setVelocityX(-160);
 
             player.anims.play('left', true);
         }
-        else if (cursors.right.isDown)
+        else if (cursor.right.isDown)
         {
             player.setVelocityX(160);
 
@@ -131,7 +131,7 @@ var GameScene = new Phaser.Class({
             player.anims.play('turn');
         }
 
-        if (cursors.up.isDown && player.body.touching.down)
+        if (cursor.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
         }
