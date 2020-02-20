@@ -24,7 +24,7 @@ var GameScene = new Phaser.Class({
         this.load.image('star', 'assets/star.png');
         //this.load.image('bomb', 'src/games/firstgame/assets/bomb.png');
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('ghost', 'assets/ghost.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.image('ghost', 'assets/ghost.png');
     },
 
     create: function ()
@@ -102,8 +102,8 @@ var GameScene = new Phaser.Class({
 
         this.livesText = this.add.text(625, 16, 'Lives: 3', { fontSize: '32px', fill: '#000' });
 
-        this.stateText = this.add.text(400, 300,' ', { font: '84px Arial', fill: '#000' });
-        //this.stateText.anchor.setTo(0.5, 0.5);
+        this.stateText = this.add.text(this.game.world.centerX, this.game.world.centerY, ' ', { font: '84px Arial', fill: '#000' });
+        this.stateText.anchor.setTo(0.5);
         this.stateText.visible = false;
     },
 
@@ -153,7 +153,7 @@ var GameScene = new Phaser.Class({
         this.livesText.setText('Lives: ' + this.lives);
 
         if(this.lives < 1){
-            player.kill();
+            //player.kill();
 
             this.stateText.setText(' GAME OVER ');
             this.stateText.visible = true;
