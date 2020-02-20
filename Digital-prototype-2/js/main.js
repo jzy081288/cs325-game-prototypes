@@ -12,6 +12,9 @@ var GameScene = new Phaser.Class({
         this.cursors = null;
         this.score = 0;
         this.scoreText = null;
+        this.lives = 3;
+        this.livesText = null;
+        this.stateText = null;
     },
 
     preload: function ()
@@ -65,17 +68,28 @@ var GameScene = new Phaser.Class({
 
         var stars = this.physics.add.group({
             key: 'star',
-            repeat: 11,
+            repeat: 8,
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
         stars.children.iterate(function (child) {
 
-            child.setBounceY(Phaser.Math.FloatBetween(0.8, 0.8));
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
         });
 
-        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        var ghost = this.physics.add.group({
+            key: 'ghosts',
+            repeat: 4,
+            setXY: {x: 24; y: 0, stepX: 70}
+        });
+
+        ghost.children.iterate(function (child) {
+
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        })
+
+        this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
 
         this.physics.add.collider(player, platforms);
         this.physics.add.collider(stars, platforms);
@@ -83,6 +97,12 @@ var GameScene = new Phaser.Class({
         this.physics.add.overlap(player, stars, this.collectStar, null, this);
 
         this.player = player;
+
+        this.livesText = this.add.text(this.world.width - 100, 16, 'Lives: 3', { fontSize: '32px', fill: '#000' });
+
+        this.stateText = this.add.text(this.world.centerX,this.world.centerY,' ', { font: '84px Arial', fill: '#000' });
+        this.stateText.anchor.setTo(0.5, 0.5);
+        this.stateText.visible = false;
     },
 
     update: function ()
@@ -121,6 +141,22 @@ var GameScene = new Phaser.Class({
 
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
+    }
+
+    ghostHitPlayer: function (player, ghost)
+    {
+        ghost.disableBody(true, true);
+
+        this.lives -= 1;
+        this.lives
+        if(lives < 1){
+            player.kill();
+
+            this.stateText.setText(' GAME OVER ');
+            this.stateText.visible = true;
+
+            //game.input.onTap.addOnce(restart,this);
+        }
     }
 
 });
