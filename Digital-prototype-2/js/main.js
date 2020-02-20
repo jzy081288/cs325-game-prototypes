@@ -157,6 +157,7 @@ var GameScene = new Phaser.Class({
             this.stateText.visible = true;
 
             //game.input.onTap.addOnce(restart,this);
+        }
     }
 
 });
