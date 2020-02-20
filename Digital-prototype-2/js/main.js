@@ -81,7 +81,7 @@ var GameScene = new Phaser.Class({
         var ghost = this.physics.add.group({
             key: 'ghosts',
             repeat: 4,
-            setXY: {x: 24; y: 0, stepX: 70 }
+            setXY: {x: 24, y: 0, stepX: 70 }
         });
 
         ghost.children.iterate(function (child) {
