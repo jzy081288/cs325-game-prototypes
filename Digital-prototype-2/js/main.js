@@ -142,7 +142,7 @@ var GameScene = new Phaser.Class({
 
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
-    }
+    },
 
     ghostHitPlayer: function (player, ghost)
     {
