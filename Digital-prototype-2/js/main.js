@@ -11,11 +11,22 @@ function preload() {
 var sprite;
 var player;
 var ghost;
+var timer = 0;
+var timerText; 
 
 function create() {
 
+    //  player
     sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
     game.physics.enable(sprite, Phaser.Physics.ARCADE);
+
+    //  Lives
+    lives = game.add.group();
+    game.add.text(game.world.width - 100, 10, 'Lives : ', { font: '34px Arial', fill: '#fff' });
+
+    //  Timer
+    game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+    timerText = game.add.text(10, 10, 'Counter: 0', { font: '34px Arial', fill: '#fff' });
 
 }
 
@@ -37,5 +48,13 @@ function update() {
     // {
     //     sprite.body.velocity.setTo(0, 0);
     // }
+
+}
+
+function updateCounter() {
+
+    counter++;
+
+    timerText.setText('Time: ' + counter);
 
 }
