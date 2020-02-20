@@ -81,13 +81,13 @@ var GameScene = new Phaser.Class({
         var ghost = this.physics.add.group({
             key: 'ghosts',
             repeat: 4,
-            setXY: {x: 24; y: 0, stepX: 70}
+            setXY: {x: 24; y: 0, stepX: 70 }
         });
 
         ghost.children.iterate(function (child) {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-        })
+        });
 
         this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
 
