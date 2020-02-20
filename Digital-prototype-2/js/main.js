@@ -93,6 +93,7 @@ var GameScene = new Phaser.Class({
 
         this.physics.add.collider(player, platforms);
         this.physics.add.collider(stars, platforms);
+        this.physics.add.collider(ghosts, platforms);
 
         this.physics.add.overlap(player, stars, this.collectStar, null, this);
         this.physics.add.overlap(player, ghost, this.ghostHitPlayer, null, this);
