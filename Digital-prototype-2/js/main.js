@@ -53,8 +53,8 @@ function update() {
 
 function updateCounter() {
 
-    counter++;
+    timer++;
 
-    timerText.setText('Time: ' + counter);
+    timerText.setText('Time: ' + timer);
 
 }
