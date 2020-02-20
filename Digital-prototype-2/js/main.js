@@ -109,16 +109,16 @@ var GameScene = new Phaser.Class({
 
     update: function ()
     {
-        var cursor = this.cursors;
+        var cursors = this.cursors;
         var player = this.player;
 
-        if (cursor.left.isDown)
+        if (cursors.left.isDown)
         {
             player.setVelocityX(-160);
 
             player.anims.play('left', true);
         }
-        else if (cursor.right.isDown)
+        else if (cursors.right.isDown)
         {
             player.setVelocityX(160);
 
@@ -131,7 +131,7 @@ var GameScene = new Phaser.Class({
             player.anims.play('turn');
         }
 
-        if (cursor.up.isDown && player.body.touching.down)
+        if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
         }
