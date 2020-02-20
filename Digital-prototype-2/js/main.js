@@ -1,171 +1,148 @@
+var GameScene = new Phaser.Class({
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update });
+    Extends: Phaser.Scene,
 
-function preload() {
+    initialize:
 
-    game.load.spritesheet('player', 'assets/guy.png', 16, 16); //https://opengameart.org/content/animated-character
-    game.load.spritesheet('ghost', 'assets/ghost.png', 32, 32); //https://opengameart.org/content/upwards-floating-soul
-    game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
-
-}
-
-var sprite;
-var player;
-var ghost;
-var timer = 0;
-var timerText; 
-var lives;
-
-function create() {
-
-    //  player
-    sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
-    game.physics.enable(sprite, Phaser.Physics.ARCADE);
-
-    //  ghost
-    ghost = game.add.group();
-    ghost.enableBody = true;
-    ghost.physicsBodyType = Phaser.Physics.ARCADE;
-
-    createGhost();
-
-    //  Lives
-    lives = game.add.group();
-    game.add.text(game.world.width - 100, 10, 'Lives : ', { font: '34px Arial', fill: '#fff' });
-
-    for (var i = 0; i < 3; i++) 
+    function GameScene ()
     {
-        var player = lives.create(game.world.width - 100 + (30 * i), 60, 'player');
-        player.anchor.setTo(0.5, 0.5);
-        player.angle = 90;
-        player.alpha = 0.4;
-    }
+        Phaser.Scene.call(this, { key: 'gameScene', active: true });
 
-    //  An explosion pool
-    explosions = game.add.group();
-    explosions.createMultiple(30, 'kaboom');
-    explosions.forEach(setupInvader, this);
+        this.player = null;
+        this.cursors = null;
+        this.score = 0;
+        this.scoreText = null;
+    },
 
-    //  Timer
-    game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
-    timerText = game.add.text(10, 10, 'Time: 0', { font: '34px Arial', fill: '#fff' });
-
-    //  Text
-    stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
-    stateText.anchor.setTo(0.5, 0.5);
-    stateText.visible = false;
-
-}
-
-function createGhost () {
-
-    for (var y = 0; y < 4; y++)
+    preload: function ()
     {
-        for (var x = 0; x < 10; x++)
+        this.load.image('sky', 'assets/sky.png');
+        this.load.image('ground', 'assets/platform.png');
+        this.load.image('star', 'assets/star.png');
+        //this.load.image('bomb', 'src/games/firstgame/assets/bomb.png');
+        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('ghost', 'assets/ghost.png', { frameWidth: 32, frameHeight: 48 });
+
+    },
+
+    create: function ()
+    {
+        this.add.image(400, 300, 'sky');
+
+        var platforms = this.physics.add.staticGroup();
+
+        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+
+        platforms.create(600, 400, 'ground');
+        platforms.create(50, 250, 'ground');
+        platforms.create(750, 220, 'ground');
+
+        var player = this.physics.add.sprite(100, 450, 'dude');
+
+        player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
+
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'turn',
+            frames: [ { key: 'dude', frame: 4 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        var stars = this.physics.add.group({
+            key: 'star',
+            repeat: 11,
+            setXY: { x: 12, y: 0, stepX: 70 }
+        });
+
+        stars.children.iterate(function (child) {
+
+            child.setBounceY(Phaser.Math.FloatBetween(0.8, 0.8));
+
+        });
+
+        this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+
+        this.physics.add.collider(player, platforms);
+        this.physics.add.collider(stars, platforms);
+
+        this.physics.add.overlap(player, stars, this.collectStar, null, this);
+
+        this.player = player;
+    },
+
+    update: function ()
+    {
+        var cursors = this.cursors;
+        var player = this.player;
+
+        if (cursors.left.isDown)
         {
-            var ghosts = ghost.create(x * 48, y * 50, 'ghost');
-            ghosts.anchor.setTo(0.5, 0.5);
-            ghosts.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
-            ghosts.play('fly');
-            ghosts.body.moves = false;
+            player.setVelocityX(-160);
+
+            player.anims.play('left', true);
         }
-    }
-
-    ghost.x = 100;
-    ghost.y = 50;
-
-    //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
-    var tween = game.add.tween(ghosts).to( { x: 200 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-
-    //  When the tween loops it calls descend
-    tween.onLoop.add(descend, this);
-}
-
-function setupPlayer (player) {
-
-    player.anchor.x = 0.5;
-    player.anchor.y = 0.5;
-    player.animations.add('kaboom');
-
-}
-
-function descend() {
-
-    ghost.y += 10;
-
-}
-
-function update() {
-
-    //  only move when you click
-    //if (game.input.mousePointer.isDown)
-    //{
-        //  400 is the speed it will move towards the mouse
-    game.physics.arcade.moveToPointer(sprite, 400);
-
-        //  if it's overlapping the mouse, don't move any more
-        if (Phaser.Rectangle.contains(sprite.body, game.input.x, game.input.y))
+        else if (cursors.right.isDown)
         {
-            sprite.body.velocity.setTo(0, 0);
+            player.setVelocityX(160);
+
+            player.anims.play('right', true);
         }
-    // }
-    // else
-    // {
-    //     sprite.body.velocity.setTo(0, 0);
-    // }
+        else
+        {
+            player.setVelocityX(0);
 
-    //  Run collision
-    game.physics.arcade.overlap(ghost, player, collisionHandler, null, this);
+            player.anims.play('turn');
+        }
 
-}
+        if (cursors.up.isDown && player.body.touching.down)
+        {
+            player.setVelocityY(-330);
+        }
+    },
 
-function updateCounter() {
+    collectStar: function (player, star)
+    {
+        star.disableBody(true, true);
 
-    timer++;
-
-    timerText.setText('Time: ' + timer);
-
-}
-
-function collisionHandler(ghost, player) {
-
-    //  When ghost hits plyer, player die
-    player.kill();
-
-    live = lives.getFirstGhost();
-
-    if(live) {
-        live.kill();
+        this.score += 10;
+        this.scoreText.setText('Score: ' + this.score);
     }
 
-    var explosion = explosions.getFirstExists(false);
-    explosion.reset(palyer.body.x, player.body.y);
-    explosion.play('kaboom', 30, false, true);
+});
 
-    if(lives.countLiving() < 1) {
-        player.kill();
+var config = {
+    type: Phaser.AUTO,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'phaser-example',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 800,
+        height: 600
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    scene: GameScene
+};
 
-        stateText.text=" GAME OVER \n Click to restart";
-        stateText.visible = true;
-
-        //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
-    }
-}
-
-function restart () {
-
-    //  A new level starts
-    
-    //resets the life count
-    lives.callAll('revive');
-    //  And brings the ghost back from the dead :)
-    ghost.removeAll();
-    createGhost();
-
-    //revives the player
-    player.revive();
-    //hides the text
-    stateText.visible = false;
-
-}
+var game = new Phaser.Game(config);
