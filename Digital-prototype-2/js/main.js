@@ -26,7 +26,7 @@ function create() {
 
     //  Timer
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
-    timerText = game.add.text(10, 10, 'Counter: 0', { font: '34px Arial', fill: '#fff' });
+    timerText = game.add.text(10, 10, 'Time: 0', { font: '34px Arial', fill: '#fff' });
 
 }
 
