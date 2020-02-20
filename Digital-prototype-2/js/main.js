@@ -100,9 +100,9 @@ var GameScene = new Phaser.Class({
 
         this.player = player;
 
-        this.livesText = this.add.text(650, 16, 'Lives: 3', { fontSize: '32px', fill: '#000' });
+        this.livesText = this.add.text(600, 16, 'Lives: 3', { fontSize: '32px', fill: '#000' });
 
-        this.stateText = this.add.text(this.world.centerX,this.world.centerY,' ', { font: '84px Arial', fill: '#000' });
+        this.stateText = this.add.text(400, 300,' ', { font: '84px Arial', fill: '#000' });
         this.stateText.anchor.setTo(0.5, 0.5);
         this.stateText.visible = false;
     },
