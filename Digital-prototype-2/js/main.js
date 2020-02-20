@@ -3,7 +3,8 @@ var GameState = function(game) {
 
 // Load images and sounds
 GameState.prototype.preload = function() {
-    this.game.load.image('player', '/assets/phaser.png');
+    this.game.load.image('player', 'assets/phaser.png');
+    this.game.load.spritesheet('ghost', 'assets/ghost.png');
 };
 
 // Setup the example
