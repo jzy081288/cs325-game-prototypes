@@ -150,8 +150,9 @@ var GameScene = new Phaser.Class({
         ghost.disableBody(true, true);
 
         this.lives -= 1;
+        this.livesText.setText('Lives: ' + this.lives);
 
-        if(lives < 1){
+        if(this.lives < 1){
             player.kill();
 
             this.stateText.setText(' GAME OVER ');
