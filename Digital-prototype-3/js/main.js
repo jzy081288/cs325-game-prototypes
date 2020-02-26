@@ -1,4 +1,4 @@
-import {TitleScene} from '.Scene/TitleScene.js';
+import TitleScene from './scene/TitleScene';
 
 let titleScene = new TitleScene();
 
