@@ -7,6 +7,7 @@ var PIECE_WIDTH = 200,
 
 var piecesGroup,
     piecesAmount,
+    pause_label,
     shuffledIndexArray = [];
 
 function preload() {
@@ -15,6 +16,17 @@ function preload() {
 
 function create() {
     prepareBoard();
+    //pause game button
+    pause_label = game.add.text(400, 300, 'start', { font: '40px Arial', fill: '#fff' });
+    pause_label.inputEnabled = true;
+    game.paused = true;
+
+    // Add a input listener that can help us return from being paused
+    game.input.onDown.add(unpause, self);
+
+    function unpause(event){
+        game.paused = false;
+    }
 }
 
 function prepareBoard() {
