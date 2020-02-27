@@ -19,7 +19,7 @@ function preload() {
 function create() {
     prepareBoard();
     //pause game button
-    pause_label = game.add.text(game.world.centerX, game.world.centerY, 'start', { font: '80px Arial', fill: '#000' });
+    pause_label = game.add.text(game.world.centerX, game.world.centerY, 'start', { font: '80px Arial', fill: '#00000' });
     pause_label.anchor.setTo(0.5, 0.5);
     pause_label.inputEnabled = true;
     game.paused = true;
@@ -32,7 +32,7 @@ function create() {
         pause_label.visible = false;
     }
 
-    text = game.add.text(game.world.width - 100, 10, 'Time: 0', { font: "34px Arial", fill: "#00000" });
+    text = game.add.text(10, 10, 'Time: 0', { font: "34px Arial", fill: "#FF000" });
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 }
 
