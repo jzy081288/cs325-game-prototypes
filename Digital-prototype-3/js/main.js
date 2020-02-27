@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'game3', { preload: preload, create: create });
 
 var PIECE_WIDTH = 200,
     PIECE_HEIGHT = 200,
@@ -9,6 +9,7 @@ var piecesGroup,
     piecesAmount,
     pause_label,
     text = 0,
+    counter = 0,
     shuffledIndexArray = [];
 
 function preload() {
@@ -31,7 +32,7 @@ function create() {
         pause_label.visible = false;
     }
 
-    text = game.add.text(game.world.width - 100, 10, 'Time: 0', { font: "64px Arial", fill: "#ffffff" });
+    text = game.add.text(game.world.width - 100, 10, 'Time: 0', { font: "34px Arial", fill: "#00000" });
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 }
 
