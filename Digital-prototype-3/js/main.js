@@ -1,127 +1,172 @@
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
 
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var PIECE_WIDTH = 200,
+    PIECE_HEIGHT = 200,
+    BOARD_COLS,
+    BOARD_ROWS;
+
+var piecesGroup,
+    piecesAmount,
+    shuffledIndexArray = [];
 
 function preload() {
-
-    game.load.tilemap('level1', 'assets/levelMap.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles-1', 'assets/tiles-1.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-    game.load.spritesheet('droid', 'assets/games/starstruck/droid.png', 32, 32);
-    game.load.image('starSmall', 'assets/games/starstruck/star.png');
-    game.load.image('starBig', 'assets/games/starstruck/star2.png');
-    game.load.image('background', 'assets/games/starstruck/background2.png');
-
+    game.load.spritesheet("background", "assets/cat.jpg", PIECE_WIDTH, PIECE_HEIGHT);
 }
-
-var map;
-var tileset;
-var layer;
-var player;
-var facing = 'left';
-var jumpTimer = 0;
-var cursors;
-var jumpButton;
-var bg;
 
 function create() {
+    prepareBoard();
+}
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+function prepareBoard() {
 
-    game.stage.backgroundColor = '#000000';
+    var piecesIndex = 0,
+        i, j,
+        piece;
 
-    bg = game.add.tileSprite(0, 0, 800, 600, 'background');
-    bg.fixedToCamera = true;
+    BOARD_COLS = Math.floor(game.world.width / PIECE_WIDTH);
+    BOARD_ROWS = Math.floor(game.world.height / PIECE_HEIGHT);
 
-    map = game.add.tilemap('level1');
+    piecesAmount = BOARD_COLS * BOARD_ROWS;
 
-    map.addTilesetImage('tiles-1');
+    shuffledIndexArray = createShuffledIndexArray();
 
-    map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+    piecesGroup = game.add.group();
 
-    layer = map.createLayer('Tile Layer 1');
-
-    //  Un-comment this on to see the collision tiles
-    // layer.debug = true;
-
-    layer.resizeWorld();
-
-    game.physics.arcade.gravity.y = 250;
-
-    player = game.add.sprite(32, 32, 'dude');
-    game.physics.enable(player, Phaser.Physics.ARCADE);
-
-    player.body.bounce.y = 0.2;
-    player.body.collideWorldBounds = true;
-    player.body.setSize(20, 32, 5, 16);
-
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('turn', [4], 20, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
-
-    game.camera.follow(player);
-
-    cursors = game.input.keyboard.createCursorKeys();
-    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    for (i = 0; i < BOARD_ROWS; i++)
+    {
+        for (j = 0; j < BOARD_COLS; j++)
+        {
+            if (shuffledIndexArray[piecesIndex]) {
+                piece = piecesGroup.create(j * PIECE_WIDTH, i * PIECE_HEIGHT, "background", shuffledIndexArray[piecesIndex]);
+            }
+            else { //initial position of black piece
+                piece = piecesGroup.create(j * PIECE_WIDTH, i * PIECE_HEIGHT);
+                piece.black = true;
+            }
+            piece.name = 'piece' + i.toString() + 'x' + j.toString();
+            piece.currentIndex = piecesIndex;
+            piece.destIndex = shuffledIndexArray[piecesIndex];
+            piece.inputEnabled = true;
+            piece.events.onInputDown.add(selectPiece, this);
+            piece.posX = j;
+            piece.posY = i;
+            piecesIndex++;
+        }
+    }
 
 }
 
-function update() {
+function selectPiece(piece) {
 
-    game.physics.arcade.collide(player, layer);
+    var blackPiece = canMove(piece);
 
-    player.body.velocity.x = 0;
-
-    if (cursors.left.isDown)
-    {
-        player.body.velocity.x = -150;
-
-        if (facing != 'left')
-        {
-            player.animations.play('left');
-            facing = 'left';
-        }
+    //if there is a black piece in neighborhood
+    if (blackPiece) {
+        movePiece(piece, blackPiece);
     }
-    else if (cursors.right.isDown)
-    {
-        player.body.velocity.x = 150;
 
-        if (facing != 'right')
-        {
-            player.animations.play('right');
-            facing = 'right';
+}
+
+function canMove(piece) {
+
+    var foundBlackElem = false;
+
+    piecesGroup.children.forEach(function(element) {
+        if (element.posX === (piece.posX - 1) && element.posY === piece.posY && element.black ||
+            element.posX === (piece.posX + 1) && element.posY === piece.posY && element.black ||
+            element.posY === (piece.posY - 1) && element.posX === piece.posX && element.black ||
+            element.posY === (piece.posY + 1) && element.posX === piece.posX && element.black) {
+            foundBlackElem = element;
+            return;
         }
-    }
-    else
-    {
-        if (facing != 'idle')
-        {
-            player.animations.stop();
+    });
 
-            if (facing == 'left')
-            {
-                player.frame = 0;
-            }
-            else
-            {
-                player.frame = 5;
-            }
+    return foundBlackElem;
+}
 
-            facing = 'idle';
+function movePiece(piece, blackPiece) {
+
+    var tmpPiece = {
+        posX: piece.posX,
+        posY: piece.posY,
+        currentIndex: piece.currentIndex
+    };
+
+    game.add.tween(piece).to({x: blackPiece.posX * PIECE_WIDTH, y: blackPiece.posY * PIECE_HEIGHT}, 300, Phaser.Easing.Linear.None, true);
+
+    //change places of piece and blackPiece
+    piece.posX = blackPiece.posX;
+    piece.posY = blackPiece.posY;
+    piece.currentIndex = blackPiece.currentIndex;
+    piece.name ='piece' + piece.posX.toString() + 'x' + piece.posY.toString();
+
+    //piece is the new black
+    blackPiece.posX = tmpPiece.posX;
+    blackPiece.posY = tmpPiece.posY;
+    blackPiece.currentIndex = tmpPiece.currentIndex;
+    blackPiece.name ='piece' + blackPiece.posX.toString() + 'x' + blackPiece.posY.toString();
+
+    //after every move check if puzzle is completed
+    checkIfFinished();
+}
+
+function checkIfFinished() {
+
+    var isFinished = true;
+
+    piecesGroup.children.forEach(function(element) {
+        if (element.currentIndex !== element.destIndex) {
+            isFinished = false;
+            return;
         }
+    });
+
+    if (isFinished) {
+        showFinishedText();
     }
+
+}
+
+function showFinishedText() {
+
+    var style = { font: "40px Arial", fill: "#000", align: "center"};
+
+    var text = game.add.text(game.world.centerX, game.world.centerY, "Congratulations! \nYou made it!", style);
+
+    text.anchor.set(0.5);
+
+}
+
+function createShuffledIndexArray() {
+
+    var indexArray = [];
+
+    for (var i = 0; i < piecesAmount; i++)
+    {
+        indexArray.push(i);
+    }
+
+    return shuffle(indexArray);
+
+}
+
+function shuffle(array) {
+
+    var counter = array.length,
+        temp,
+        index;
+
+    while (counter > 0)
+    {
+        index = Math.floor(Math.random() * counter);
+
+        counter--;
+
+        temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
     
-    if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
-    {
-        player.body.velocity.y = -250;
-        jumpTimer = game.time.now + 750;
-    }
-
-}
-
-function render () {
-
-    // game.debug.text(game.time.physicsElapsed, 32, 32);
-    // game.debug.body(player);
-    // game.debug.bodyInfo(player, 16, 24);
-
 }
