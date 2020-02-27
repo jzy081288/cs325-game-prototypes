@@ -8,6 +8,7 @@ var PIECE_WIDTH = 200,
 var piecesGroup,
     piecesAmount,
     pause_label,
+    text = 0,
     shuffledIndexArray = [];
 
 function preload() {
@@ -17,7 +18,8 @@ function preload() {
 function create() {
     prepareBoard();
     //pause game button
-    pause_label = game.add.text(400, 300, 'start', { font: '40px Arial', fill: '#000' });
+    pause_label = game.add.text(game.world.centerX, game.world.centerY, 'start', { font: '80px Arial', fill: '#000' });
+    pause_label.anchor.setTo(0.5, 0.5);
     pause_label.inputEnabled = true;
     game.paused = true;
 
@@ -28,6 +30,17 @@ function create() {
         game.paused = false;
         pause_label.visible = false;
     }
+
+    text = game.add.text(game.world.width - 100, 10, 'Time: 0', { font: "64px Arial", fill: "#ffffff" });
+    game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+}
+
+function updateCounter() {
+
+    counter++;
+
+    text.setText('Time: ' + counter);
+
 }
 
 function prepareBoard() {
