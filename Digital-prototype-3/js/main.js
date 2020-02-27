@@ -32,7 +32,7 @@ function create() {
         pause_label.visible = false;
     }
 
-    text = game.add.text(10, 10, 'Time: 0', { font: "34px Arial", fill: "#FF000" });
+    text = game.add.text(10, 10, 'Time: 0', { font: "34px Arial", fill: "#4488AA" });
     game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 }
 
