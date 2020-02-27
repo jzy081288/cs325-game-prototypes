@@ -17,7 +17,7 @@ function preload() {
 function create() {
     prepareBoard();
     //pause game button
-    pause_label = game.add.text(400, 300, 'start', { font: '40px Arial', fill: '#fff' });
+    pause_label = game.add.text(400, 300, 'start', { font: '40px Arial', fill: '#000' });
     pause_label.inputEnabled = true;
     game.paused = true;
 
@@ -26,6 +26,7 @@ function create() {
 
     function unpause(event){
         game.paused = false;
+        pause_label.visible = false;
     }
 }
 
