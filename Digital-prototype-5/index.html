@@ -1,10 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Hello! Amaze!</title>
-    <script src="js/phaser.js"></script>
-    <script src="js/main.js"></script>
+	<meta charset="UTF-8" />
+	<title>Phaser Basic Project Template</title>
+	<script src="js/phaser.min.js"></script>
+	<!-- Boot.js must come first since it creates the BasicGame object
+	that stores all the states. -->
+	<script src="js/Boot.js"></script>
+	<script src="js/Preloader.js"></script>
+	<script src="js/MainMenu.js"></script>
+	<script src="js/Game.js"></script>
+	<!-- main.js must come last since it references the other ones. -->
+	<script src="js/main.js"></script>
 
 <style>
 body
@@ -26,7 +33,7 @@ body
 
 <ul>
 <li><strong>Originality:</strong>
-The start screen and the timer. 
+What is original about your game?
 </li>
 
 <li><strong>Technical Merit:</strong>
@@ -34,57 +41,67 @@ What is interesting about your game technology?
 </li>
 
 <li><strong>Prototype Postmortem:</strong>
-how to set different scenes. 
+What did you learn from this prototype?
+What was the easiest or hardest part of making it?
 </li>
 
 <li><strong>Prototype Assets:</strong>
+Did you make your prototype assets from scratch? Did you borrow them? Cite your sources here.
 <ul>
-<li>Background image: <a href="https://www.rawpixel.com/image/481515/free-illustration-image-cat-vintage-cc0">Cat</a></li>
+<li>Loading screen: self-made</li>
+<li>Puppy image: self-made</li>
+<li>Button: Phaser example <a href="https://phaser.io/examples/v2/buttons/action-on-click">Action On Click</a></li>
+<li>Bouncing Phaser image: <a href="https://phaser.io/download/logo">Phaser logo</a></li>
+<li>Music: "Poppers and Prosecco" Kevin MacLeod (<a href="incompetech.com">incompetech.com</a>). Licensed under <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons: By Attribution 3.0 License</a></li>
 </ul>
 </li>
 
 <li><strong>Prototype Closest Other Game:</strong>
-<li>The game I borrow is: <a href="https://phaser.io/examples/v2/games/sliding-puzzle">Sliding puzzle</a></li>
+Which other game most closely resembles your game? If you are borrowing code from a Phaser Example, you must say so here. If you borrow code from elsewhere, you must say so here.
+<ul>
+<li>The code for this example is adapted from the <a href="https://github.com/photonstorm/phaser/tree/v2.6.2/resources/Project%20Templates/Basic">Phaser Basic Project Template</a></li>
+</ul>
 </li>
 
 <li><strong>High Concept:</strong>
-Slide the puzzle to bring the original cat paint back.
+A one-sentence summary of your game.
 </li>
 
 <li><strong>Theme:</strong>
-Cartoonist and person with lots and lots of cats
+State which of the Storymatic themes you used.
 </li>
 
 <li><strong>Mandated Variety:</strong>
-This is a puzzle solving game, and only use the mouse to click the part you want to move. 
+State which input, randomness, genre, and play style you used in this prototype.
 </li>
 
 <li><strong>Prototype Goal:</strong>
-Slide the puzzle to bring the original cat paint back.
+What game mechanic is this prototype evaluating?
 </li>
 
 <li><strong>Player Experience Goals:</strong>
-Gain a sense of accomplishment by winning the game
+What experience do you want players to have when playing your game?
 </li>
 
 <li><strong>Gameplay:</strong>
-The game will randomly mass the pieces up and make it harder for player to win it. 
+A paragraph describing the actions the player can perform, the system dynamics, and the core mechanic. Include a concise explanation of the prototype’s inputs and their expected effects (how to play). You can also describe game play that is not in the prototype. You may include mock-up images for parts of the game not in the prototype.
 </li>
 
 <li><strong>Strategies:</strong>
-Trying to finish it line by line from the top. 
+What player strategies do you expect will be effective at playing this game?
 </li>
 
 <li><strong>Story/Setting/Premise:</strong>
-You are a cartoonist with lots of cats. You love your cats and want to paint a gaint work for one of them. When you finish it and find a great place to display it, you break it into parts for eaiser to move. Your lovely cats massd it up, trying to rearrange it as quick as possible. 
+A paragraph about the world your game is set in and who the characters are. What makes the game world and its occupants unique and interesting? Do the tokens represent something? If the game has a backstory, mention it here. If the game is abstract, then say so.
+How will the dramatic tension interact with the gameplay tension?
 </li>
 
 <li><strong>Target Audience:</strong>
-All the game players.
+A single sentence that describes the demographic you're trying to reach.
 </li>
 
 <li><strong>Play Time:</strong>
-Depends on the player, it can be 5 to 10mins. 
+How long does your game take to play?
 </li>
 
 </ul>
