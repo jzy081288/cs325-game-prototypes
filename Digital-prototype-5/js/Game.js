@@ -45,7 +45,7 @@ GameStates.makeGame = function( game, shared ) {
             // new trajectory.
             //bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
             
-            if (down.input.activePointer.leftButton.isDown) {this.houseMap();}
+            down.input.onTap.addOnce(houseMap, this);
 
         },
 
