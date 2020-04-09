@@ -9,15 +9,15 @@ GameStates.makeGame = function( game, shared ) {
     var up = null;
     var down = null;
     
-    // function quitGame() {
+    function quitGame() {
 
-    //     //  Here you should destroy anything you no longer need.
-    //     //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
+        //  Here you should destroy anything you no longer need.
+        //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
 
-    //     //  Then let's go back to the main menu.
-    //     game.state.start('MainMenu');
+        //  Then let's go back to the main menu.
+        game.state.start('EndGame');
 
-    // }
+    }
     
     return {
     
@@ -45,16 +45,16 @@ GameStates.makeGame = function( game, shared ) {
             // new trajectory.
             //bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
             
-            down.input.onTap.addOnce(houseMap, this);
+            down.input.onTap.addOnce(quitGame, this);
 
         },
 
-        houseMap: function () {
-            this.map.kill();
-            this.dude.kill();
-            this.up.kill();
-            this.down.kill();
-            this.state.start('EndGame');
-        }
+        // houseMap: function () {
+        //     this.map.kill();
+        //     this.dude.kill();
+        //     this.up.kill();
+        //     this.down.kill();
+        //     this.state.start('EndGame');
+        // }
     };
 };
