@@ -45,7 +45,7 @@ GameStates.makeGame = function( game, shared ) {
             // new trajectory.
             //bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
             
-            //if (up.input.activePointer.leftButton.isDown) {this.houseMap();}
+            if (down.input.activePointer.leftButton.isDown) {this.houseMap();}
 
         },
 
@@ -54,7 +54,7 @@ GameStates.makeGame = function( game, shared ) {
             this.dude.kill();
             this.up.kill();
             this.down.kill();
-            this.state.start('FinalMap');
+            this.state.start('EndGame');
         }
     };
 };
