@@ -1,6 +1,6 @@
 "use strict";
 
-GameStates.makeFinalGame = function( game, shared ) {
+GameStates.makeFinalMap = function( game, shared ) {
     // Create your own variables.
     //var bouncy = null;
     var dude = null;
