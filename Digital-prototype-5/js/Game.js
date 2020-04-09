@@ -45,7 +45,7 @@ GameStates.makeGame = function( game, shared ) {
             // new trajectory.
             //bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
             
-            this.down.input.onTap.addOnce(quitGame, this);
+            game.input.onTap.addOnce(quitGame, this);
 
         },
 
