@@ -1,6 +1,6 @@
 "use strict";
 
-GameStates.makeEndGame = function(game) {
+GameStates.makeEndGame = function( game, shared ) {
 
 	// var playButton = null;
 	var stateText = null;

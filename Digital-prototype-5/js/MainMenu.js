@@ -2,7 +2,7 @@
 
 GameStates.makeMainMenu = function( game, shared ) {
 
-	var music = null;
+	// var music = null;
 	var playButton = null;
     
     function startGame(pointer) {
