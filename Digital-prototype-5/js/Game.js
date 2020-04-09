@@ -31,7 +31,7 @@ GameStates.makeGame = function( game, shared ) {
             this.up = this.add.image(375, 0, 'up');
             this.down = this.add.image(574, 550, 'down');
 
-            game.imput.mouse.capture = true;
+            //game.imput.mouse.capture = true;
         },
     
         update: function () {
@@ -45,7 +45,7 @@ GameStates.makeGame = function( game, shared ) {
             // new trajectory.
             //bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
             
-            if (up.input.activePointer.leftButton.isDown) {this.houseMap();}
+            //if (up.input.activePointer.leftButton.isDown) {this.houseMap();}
 
         },
 
