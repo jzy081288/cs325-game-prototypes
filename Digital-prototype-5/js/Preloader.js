@@ -29,7 +29,8 @@ GameStates.makePreloader = function( game ) {
             //	+ lots of other required assets here
             game.load.image( 'logo', 'assets/phaser.png' );
             // game.load.image( 'startBackground', 'assets/start.png' );
-            game.load.spritesheet( 'dude', 'assets/dude.png' );
+            game.load.image( 'dude', 'assets/man.png' );
+            game.load.image( 'home', 'assets/houseIcon.png' );
 
             game.load.image( 'up', 'assets/icons/arrow-up.png' );
             game.load.image( 'down', 'assets/icons/arrow-down.png' );
@@ -40,6 +41,8 @@ GameStates.makePreloader = function( game ) {
             game.load.image( 'house', 'assets/maps/house.jpg' );
             // game.load.image( 'cross', 'assets/maps/cross.jpg' );
             // game.load.image( 'river', 'assets/maps/river.jpg' );
+
+            game.load.image( 'box', 'assets/box.png');
         },
     
         create: function () {
