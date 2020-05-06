@@ -31,12 +31,13 @@ GameStates.makeGame = function( game, shared ) {
             this.up = this.add.image(375, 0, 'up');
             this.down = this.add.image(574, 550, 'down');
 
-            up.inputEnabled = true;
+            // up.inputEnabled = true;
+            // down.inputEnabled = true;
+
+            // down.events.onInputDown.add(finalMap, this);
+
             down.inputEnabled = true;
-
             down.events.onInputDown.add(finalMap, this);
-
-            //game.imput.mouse.capture = true;
         },
     
         update: function () {
