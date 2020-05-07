@@ -16,6 +16,13 @@ GameStates.makeFinalMap = function( game, shared ) {
     //     game.state.start('EndGame');
 
     // }
+
+    function houseMap() {
+        this.map.kill();
+        this.dude.kill();
+        this.house.kill();
+        this.state.start('EndGame');
+        }
     
     return {
     
@@ -42,13 +49,13 @@ GameStates.makeFinalMap = function( game, shared ) {
             
             if (house.input.activePointer.leftButton.isDown) {this.houseMap();}
 
-        },
-
-        houseMap: function () {
-            this.map.kill();
-            this.dude.kill();
-            this.house.kill();
-            this.state.start('EndGame');
         }
+
+        // houseMap: function () {
+        //     this.map.kill();
+        //     this.dude.kill();
+        //     this.house.kill();
+        //     this.state.start('EndGame');
+        // }
     };
 };

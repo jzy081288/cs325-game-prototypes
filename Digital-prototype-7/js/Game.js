@@ -80,7 +80,7 @@ GameStates.makeGame = function( game, shared ) {
             
             // game.input.onTap.addOnce(quitGame, this);
 
-        },
+        }
 
         // houseMap: function () {
         //     this.map.kill();
