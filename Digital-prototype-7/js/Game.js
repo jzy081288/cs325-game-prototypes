@@ -35,6 +35,7 @@ GameStates.makeGame = function( game, shared ) {
     
         create: function () {
             this.map = this.add.image(game.world.centerX, game.world.centerY, 'start');
+            this.map.anchor.set(0.5);
             this.dude = this.add.image(400, 300, 'dude');
 
             this.chat = this.add.image(0, 450, 'box');
