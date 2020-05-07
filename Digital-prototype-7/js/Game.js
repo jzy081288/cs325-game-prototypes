@@ -20,17 +20,21 @@ GameStates.makeGame = function( game, shared ) {
     // }
 
     function finalMap() {
-            this.map.kill();
-            this.dude.kill();
-            this.up.kill();
-            this.down.kill();
-            this.state.start('FinalMap');
+        this.map.kill();
+        this.dude.kill();
+        this.up.kill();
+        this.down.kill();
+        this.state.start('FinalMap');
+    }
+
+    function text() {
+        this.chat.visible = true;
     }
     
     return {
     
         create: function () {
-            this.map = this.add.image(0, 0, 'start');
+            this.map = this.add.image(game.world.centerX, game.world.centerY, 'start');
             this.dude = this.add.image(400, 300, 'dude');
 
             this.chat = this.add.image(0, 450, 'box');
@@ -46,6 +50,9 @@ GameStates.makeGame = function( game, shared ) {
 
             this.down.inputEnabled = true;
             this.down.events.onInputDown.add(finalMap, this);
+
+            this.up.inputEnabled = true;
+            this.up.events.onInputDown.add(text, this);
         },
     
         update: function () {
