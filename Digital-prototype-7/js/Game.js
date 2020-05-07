@@ -37,7 +37,7 @@ GameStates.makeGame = function( game, shared ) {
             // down.events.onInputDown.add(finalMap, this);
 
             this.down.inputEnabled = true;
-            this.down.events.onInputDown.add(finalMap, this);
+            this.down.events.onInputDown.add(FinalMap, this);
         },
     
         update: function () {
