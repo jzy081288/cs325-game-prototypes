@@ -19,6 +19,10 @@ window.onload = function() {
 	game.state.add( 'Game', GameStates.makeGame( game, shared ) );
 	game.state.add( 'EndGame', GameStates.makeEndGame( game, shared) );
 	game.state.add( 'FinalMap', GameStates.makeFinalMap( game, shared ) );
+	game.state.add( 'LightStart', GameStates.makeLightStart( game, shared));
+	game.state.add( 'Cave', GameStates.makeCave(game, shared));
+	game.state.add( 'KeyStart', GameStates.makeKeyStart(game, shared));
+	game.state.add( 'Last', GameStates.makeLast(game, shared));
 
 	//	Now start the Boot state.
 	game.state.start('Boot');

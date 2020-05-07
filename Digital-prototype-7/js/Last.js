@@ -6,10 +6,10 @@ GameStates.makeFinalMap = function( game, shared ) {
     var dude = null;
     var map = null;
     var house = null;
-    var light = null;
-    var chat = null;
+    //var light = null;
+    //var chat = null;
     var up = null;
-    var collect = 0;
+    //var collect = 0;
     var notice;
     
     // function quitGame() {
@@ -24,17 +24,17 @@ GameStates.makeFinalMap = function( game, shared ) {
 
     function houseMap() {
         this.chat.visible = true;
-        this.notice = game.add.text(250, 485, 'The house is locked!\nFind the key!', { font: '20px Arial', fill: '#fff' });
+        this.notice = game.add.text(250, 485, 'The house is unlocked!\nWelcome back!', { font: '20px Arial', fill: '#fff' });
         this.chat.events.onInputDown.add(textOff, this);
     }
 
-    function collectLight() {
-        this.chat.visible = true;
-        this.notice = game.add.text(250, 485, 'Find the flashlight!\n Back to the cave!', { font: '20px Arial', fill: '#fff' });
-        this.collect = 1;
-        this.light.visible = false;
-        this.chat.events.onInputDown.add(textOff, this);
-    }
+    // function collectLight() {
+    //     this.chat.visible = true;
+    //     this.notice = game.add.text(250, 485, 'Find the flashlight!\n Back to the cave!', { font: '20px Arial', fill: '#fff' });
+    //     this.chat.events.onInputDown.add(textOff, this);
+    //     this.light.visible = false;
+    //     this.collect = 1;
+    // }
 
     function lightCave() {
         this.map.kill();
@@ -44,17 +44,14 @@ GameStates.makeFinalMap = function( game, shared ) {
         this.state.start('LightStart');
     }
 
-    function mainMap() {
+    function textOff() {
+        this.chat.visible = false;
+        this.notice.visible = false;
         this.map.kill();
         this.dude.kill();
         this.house.kill();
         this.up.kill();
-        this.state.start('Game');
-    }
-
-    function textOff() {
-        this.chat.visible = false;
-        this.notice.visible = false;
+        this.state.start('EndGame');
     }
     
     return {
@@ -68,26 +65,21 @@ GameStates.makeFinalMap = function( game, shared ) {
             this.house = this.add.image(300, 350, 'home');
             this.house.scale.setTo(2);
 
-            this.light = this.add.image(600, 300, 'light');
+            //this.light = this.add.image(600, 300, 'light');
 
             this.chat = this.add.image(0, 450, 'box');
             this.chat.inputEnabled = true;
             this.chat.visible = false;
 
-            this.light.inputEnabled = true;
-            this.light.events.onInputDown.add(collectLight, this);
+            // this.light.inputEnabled = true;
+            // this.light.events.onInputDown.add(collectLight, this);
 
             this.house.inputEnabled = true;
             this.house.events.onInputDown.add(houseMap, this);
 
             this.up = this.add.image(375, 0, 'up');
             this.up.inputEnabled = true;
-            if (collect = 1) {
-                this.up.events.onInputDown.add(lightCave, this);
-            }
-            else if (collect = 0) {
-                this.up.events.onInputDown.add(mainMap, this);
-            }
+            this.up.events.onInputDown.add(lightCave, this);
         },
     
         update: function () {

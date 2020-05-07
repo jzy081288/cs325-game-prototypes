@@ -43,6 +43,9 @@ GameStates.makePreloader = function( game ) {
             // game.load.image( 'river', 'assets/maps/river.jpg' );
 
             game.load.image( 'box', 'assets/box.png');
+            game.load.image( 'light', 'assets/FlashLight.png');
+            game.load.image( 'cave', 'assets/cave.png');
+            game.load.image( 'key', 'assets/key.png');
         },
     
         create: function () {
