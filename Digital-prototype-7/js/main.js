@@ -18,7 +18,7 @@ window.onload = function() {
 	game.state.add( 'MainMenu', GameStates.makeMainMenu( game, shared ) );
 	game.state.add( 'Game', GameStates.makeGame( game, shared ) );
 	game.state.add( 'EndGame', GameStates.makeEndGame( game, shared) );
-	game.state.add( 'FinalMap', GameStates.makeFinalGame( game, shared ) );
+	game.state.add( 'FinalMap', GameStates.makeFinalMap( game, shared ) );
 
 	//	Now start the Boot state.
 	game.state.start('Boot');

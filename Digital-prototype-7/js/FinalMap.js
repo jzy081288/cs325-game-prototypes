@@ -42,7 +42,7 @@ GameStates.makeFinalMap = function( game, shared ) {
             
             if (house.input.activePointer.leftButton.isDown) {this.houseMap();}
 
-        };
+        },
 
         houseMap: function () {
             this.map.kill();
