@@ -29,6 +29,7 @@ GameStates.makeCave = function( game, shared ) {
     }
 
     function text() {
+        this.key.visible = false;
         this.chat.visible = true;
         this.notice = game.add.text(250, 485, 'Find the key!\n Back to the house!', { font: '20px Arial', fill: '#fff' });
         //this.notice.text = "The cave is too dark! Need a flashlight!"
