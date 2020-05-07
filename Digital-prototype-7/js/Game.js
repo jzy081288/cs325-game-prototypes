@@ -34,7 +34,7 @@ GameStates.makeGame = function( game, shared ) {
             this.dude = this.add.image(400, 300, 'dude');
 
             this.chat = this.add.image(0, 450, 'box');
-            this.chat.variables = false;
+            this.chat.visible = false;
 
             this.up = this.add.image(375, 0, 'up');
             this.down = this.add.image(574, 550, 'down');
