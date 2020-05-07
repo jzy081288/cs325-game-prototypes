@@ -1,6 +1,6 @@
 "use strict";
 
-GameStates.makeGame = function( game, shared ) {
+GameStates.makeKeyStart = function( game, shared ) {
     // Create your own variables.
     //var bouncy = null;
     var dude = null;
