@@ -30,9 +30,9 @@ GameStates.makeGame = function( game, shared ) {
 
     function text() {
         this.chat.visible = true;
-        this.notice = game.add.text(250, 500, 'The cave is too dark!\n Need a flashlight!', { font: '40px Arial', fill: '#fff' });
+        this.notice = game.add.text(250, 485, 'The cave is too dark!\n Need a flashlight!', { font: '40px Arial', fill: '#fff' });
         //this.notice.text = "The cave is too dark! Need a flashlight!"
-        this.down.events.onInputDown.add(textOff, this);
+        this.chat.events.onInputDown.add(textOff, this);
     }
 
     function textOff() {
@@ -46,6 +46,7 @@ GameStates.makeGame = function( game, shared ) {
             this.map = this.add.image(game.world.centerX, game.world.centerY, 'start');
             this.map.anchor.set(0.5);
             this.dude = this.add.image(400, 300, 'dude');
+            this.dude.scale.setTo(2);
 
             this.chat = this.add.image(0, 450, 'box');
             this.chat.inputEnabled = true;

@@ -26,7 +26,6 @@ GameStates.makeFinalMap = function( game, shared ) {
             this.house = this.add.image(300, 350, 'home');
 
             house.inputEnabled = true;
-
             house.events.onInputDown.add(houseMap, this);
         },
     
