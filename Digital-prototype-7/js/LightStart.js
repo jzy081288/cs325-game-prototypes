@@ -25,7 +25,7 @@ GameStates.makeLightStart = function( game, shared ) {
         this.dude.kill();
         this.up.kill();
         this.down.kill();
-        this.state.start('cave');
+        this.state.start('Cave');
     }
 
     function finalMap() {
