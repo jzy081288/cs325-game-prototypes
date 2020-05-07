@@ -9,14 +9,22 @@ GameStates.makeGame = function( game, shared ) {
     var up = null;
     var down = null;
     
-    function quitGame() {
+    // function quitGame() {
 
-        //  Here you should destroy anything you no longer need.
-        //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
+    //     //  Here you should destroy anything you no longer need.
+    //     //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
 
-        //  Then let's go back to the main menu.
-        game.state.start('EndGame');
+    //     //  Then let's go back to the main menu.
+    //     game.state.start('EndGame');
 
+    // }
+
+    function finalMap() {
+            this.map.kill();
+            this.dude.kill();
+            this.up.kill();
+            this.down.kill();
+            this.state.start('FinalMap');
     }
     
     return {
@@ -37,7 +45,7 @@ GameStates.makeGame = function( game, shared ) {
             // down.events.onInputDown.add(finalMap, this);
 
             this.down.inputEnabled = true;
-            this.down.events.onInputDown.add(FinalMap, this);
+            this.down.events.onInputDown.add(finalMap, this);
         },
     
         update: function () {
@@ -63,12 +71,12 @@ GameStates.makeGame = function( game, shared ) {
         //     this.state.start('EndGame');
         // }
 
-        finalMap: function() {
-            this.map.kill();
-            this.dude.kill();
-            this.up.kill();
-            this.down.kill();
-            this.state.start('FinalMap');
-        }
+        // finalMap: function() {
+        //     this.map.kill();
+        //     this.dude.kill();
+        //     this.up.kill();
+        //     this.down.kill();
+        //     this.state.start('FinalMap');
+        // }
     };
 };
