@@ -30,7 +30,7 @@ GameStates.makeGame = function( game, shared ) {
 
     function text() {
         this.chat.visible = true;
-        this.notice = game.add.text(250, 485, 'The cave is too dark!\n Need a flashlight!', { font: '40px Arial', fill: '#fff' });
+        this.notice = game.add.text(250, 485, 'The cave is too dark!\n Need a flashlight!', { font: '20px Arial', fill: '#fff' });
         //this.notice.text = "The cave is too dark! Need a flashlight!"
         this.chat.events.onInputDown.add(textOff, this);
     }
